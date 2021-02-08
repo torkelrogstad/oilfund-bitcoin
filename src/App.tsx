@@ -12,6 +12,11 @@ const squareBitcoinCount = 4_709;
 /** as of october 9 2020 */
 const norwegianCount = 5_374_807;
 
+/** 8. feb 2021 */
+const tslaOwnership = 0.45;
+/** With a VWAP of 34_840 in January 2021 */
+const tslaBitcoinCountEstimate = 43_053;
+
 interface Response {
   NorwegianBitcoins: number;
   UsdEquivalent: number;
@@ -33,20 +38,25 @@ function App() {
   const { MstrOwnership, NorwegianBitcoins, UsdEquivalent } = data;
 
   const squareBitcoins = (squareBitcoinCount * squareOwnership) / 100;
-  const mstrPlusSquareBitcoins = NorwegianBitcoins + squareBitcoins;
+  const teslaBitcoins = (tslaBitcoinCountEstimate * tslaOwnership) / 100;
+  const allBitcoins = NorwegianBitcoins + squareBitcoins + teslaBitcoins;
   const mstrPlusSquareSatoshisPerCitizen =
-    (mstrPlusSquareBitcoins * 100_000_000) / norwegianCount;
+    (allBitcoins * 100_000_000) / norwegianCount;
 
   // lol, reverse the backend calculation
   const btcUsdPrice = UsdEquivalent / NorwegianBitcoins;
 
-  const mstrPlusSquareUSD = mstrPlusSquareBitcoins * btcUsdPrice;
+  const mstrPlusSquareUSD = allBitcoins * btcUsdPrice;
 
   return (
     <>
       <img alt="bitcoin-gif" src={bitcoinGif} />
       <p id="btc-summary">
         Through its ownership stakes in{" "}
+        <a href="https://www.sec.gov/Archives/edgar/data/1318605/000156459021004599/tsla-10k_20201231.htm">
+          TSLA
+        </a>{" "}
+        ({tslaOwnership}%),{" "}
         <a href="https://ir.microstrategy.com/news-releases/news-release-details/microstrategy-adopts-bitcoin-primary-treasury-reserve-asset">
           MicroStrategy
         </a>{" "}
@@ -56,10 +66,16 @@ function App() {
         </a>{" "}
         ({squareOwnership}%), the Norwegian Government Pension Fund now
         indirectly holds{" "}
-        <span id="amt-btc">{mstrPlusSquareBitcoins.toFixed(2)} bitcoin</span> (~
+        <span id="amt-btc">{allBitcoins.toFixed(2)} bitcoin</span> (~
         {(mstrPlusSquareUSD / 1_000_000).toFixed(1)}m USD). This is equivalent
         to {mstrPlusSquareSatoshisPerCitizen.toFixed(0)} sats per Norwegian
         citizen.
+      </p>
+      <p>
+        The TSLA bitcoin count is based on an estimate, where we assume they
+        bought trough January 2021, with a BTCUSD volume weighted average price
+        (VWAP) of $34,840. When TSLA releases more details on this, this site
+        will be updated.
       </p>
       <p>
         Every once in a while the Bitcoin price changes or the Norwegian
