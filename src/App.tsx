@@ -73,7 +73,7 @@ function App() {
       </p>
       <p>
         The TSLA bitcoin count is based on an estimate, where we assume they
-        bought trough January 2021, with a BTCUSD volume weighted average price
+        bought through January 2021, with a BTCUSD volume weighted average price
         (VWAP) of $34,840. When TSLA releases more details on this, this site
         will be updated.
       </p>
