@@ -54,7 +54,7 @@ function App() {
       <p id="btc-summary">
         Through its ownership stakes in{" "}
         <a href="https://www.sec.gov/Archives/edgar/data/1318605/000156459021004599/tsla-10k_20201231.htm">
-          TSLA
+          Tesla
         </a>{" "}
         ({tslaOwnership}%),{" "}
         <a href="https://ir.microstrategy.com/news-releases/news-release-details/microstrategy-adopts-bitcoin-primary-treasury-reserve-asset">
