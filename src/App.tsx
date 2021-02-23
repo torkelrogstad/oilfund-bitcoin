@@ -6,8 +6,8 @@ import bitcoinGif from "./bitcoin.gif";
 /** as of october 9 2020 */
 const squareOwnership = 0.83;
 
-/** as of october 9 2020 */
-const squareBitcoinCount = 4_709;
+/** as of February 23 2021 */
+const squareBitcoinCount = 8_027;
 
 /** as of october 9 2020 */
 const norwegianCount = 5_374_807;
@@ -89,7 +89,6 @@ function App() {
           Arcane Research
         </a>
       </p>
-      <img alt="bitcoin-gif" src={bitcoinGif} />
     </>
   );
 }
