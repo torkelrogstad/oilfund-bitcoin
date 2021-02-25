@@ -3,26 +3,26 @@ import "./App.scss";
 import { useGet } from "restful-react";
 import bitcoinGif from "./bitcoin.gif";
 
-/** as of october 9 2020 */
-const squareOwnership = 0.83;
+type Company = "MSTR" | "SQ" | "TSLA";
+const ownership: { [key in Company]: number } = {
+  MSTR: 1.09,
+  SQ: 0.59,
+  TSLA: 0.8,
+};
+const bitcoinCount: { [key in Company]: number } = {
+  MSTR: 90_531,
+  SQ: 8_027,
+  TSLA: 43_053,
+};
 
-/** as of February 23 2021 */
-const squareBitcoinCount = 8_027;
+const indirectBtc = (company: Company) => {
+  return bitcoinCount[company] * (ownership[company] / 100);
+};
 
-/** as of october 9 2020 */
 const norwegianCount = 5_374_807;
 
-/** 8. feb 2021 */
-const tslaOwnership = 0.45;
-/** With a VWAP of 34_840 in January 2021 */
-const tslaBitcoinCountEstimate = 43_053;
-
 interface Response {
-  NorwegianBitcoins: number;
-  UsdEquivalent: number;
-  SatoshisPerCitizen: number;
-  UsdEquivalentPerCitizen: number;
-  MstrOwnership: number;
+  BtcUsd: number;
 }
 
 function App() {
@@ -35,18 +35,14 @@ function App() {
     return null;
   }
 
-  const { MstrOwnership, NorwegianBitcoins, UsdEquivalent } = data;
+  const { BtcUsd } = data;
 
-  const squareBitcoins = (squareBitcoinCount * squareOwnership) / 100;
-  const teslaBitcoins = (tslaBitcoinCountEstimate * tslaOwnership) / 100;
-  const allBitcoins = NorwegianBitcoins + squareBitcoins + teslaBitcoins;
+  const allBitcoins =
+    indirectBtc("MSTR") + indirectBtc("SQ") + indirectBtc("TSLA");
   const mstrPlusSquareSatoshisPerCitizen =
     (allBitcoins * 100_000_000) / norwegianCount;
 
-  // lol, reverse the backend calculation
-  const btcUsdPrice = UsdEquivalent / NorwegianBitcoins;
-
-  const mstrPlusSquareUSD = allBitcoins * btcUsdPrice;
+  const mstrPlusSquareUSD = allBitcoins * BtcUsd;
 
   return (
     <>
@@ -56,20 +52,22 @@ function App() {
         <a href="https://www.sec.gov/Archives/edgar/data/1318605/000156459021004599/tsla-10k_20201231.htm">
           Tesla
         </a>{" "}
-        ({tslaOwnership}%),{" "}
+        ({ownership.TSLA}%),{" "}
         <a href="https://ir.microstrategy.com/news-releases/news-release-details/microstrategy-adopts-bitcoin-primary-treasury-reserve-asset">
           MicroStrategy
         </a>{" "}
-        ({MstrOwnership}%) and{" "}
+        ({ownership.MSTR}%) and{" "}
         <a href="https://images.ctfassets.net/2d5q1td6cyxq/5sXNrlEh2mEnTvvhgtYOm2/737bcfdc15e2a1c3cbd9b9451710ce54/Square_Inc._Bitcoin_Investment_Whitepaper.pdf">
           Square
         </a>{" "}
-        ({squareOwnership}%), the Norwegian Government Pension Fund now
-        indirectly holds{" "}
-        <span id="amt-btc">{allBitcoins.toFixed(2)} bitcoin</span> (~
+        ({ownership.SQ}%), the Norwegian Government Pension Fund now indirectly
+        holds <span id="amt-btc">{allBitcoins.toFixed(2)} bitcoin</span> (~
         {(mstrPlusSquareUSD / 1_000_000).toFixed(1)}m USD). This is equivalent
-        to {mstrPlusSquareSatoshisPerCitizen.toFixed(0)} sats per Norwegian
-        citizen.
+        to{" "}
+        {mstrPlusSquareSatoshisPerCitizen.toLocaleString(undefined, {
+          maximumFractionDigits: 0,
+        })}{" "}
+        sats per Norwegian citizen.
       </p>
       <p>
         The TSLA bitcoin count is based on an estimate, where we assume they
