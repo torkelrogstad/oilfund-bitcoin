@@ -10,7 +10,7 @@ const ownership: { [key in Company]: number } = {
   TSLA: 0.8,
 };
 const bitcoinCount: { [key in Company]: number } = {
-  MSTR: 90_531,
+  MSTR: 90_859,
   SQ: 8_027,
   TSLA: 43_053,
 };
