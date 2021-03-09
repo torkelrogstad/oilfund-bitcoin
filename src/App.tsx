@@ -68,11 +68,11 @@ function App() {
       <p id="btc-summary">
         Through its ownership stakes in{" "}
         <a href={companyBitcoinLinks.SEETEE}>Seetee</a> (parent Aker group) (
-        {ownership.SEETEE}%),{" "}
-        <a href={companyBitcoinLinks.MSTR}>MicroStrategy</a> ({ownership.MSTR}%)
-        and <a href={companyBitcoinLinks.SQ}>Square</a> ({ownership.SQ}%), two
-        Norwegian government pension funds now indirectly hold{" "}
-        <span id="amt-btc">{allBitcoins.toFixed(2)} bitcoin</span> (~
+        {ownership.SEETEE}%), <a href={companyBitcoinLinks.TSLA}>Tesla</a> (
+        {ownership.TSLA}%), <a href={companyBitcoinLinks.MSTR}>MicroStrategy</a>{" "}
+        ({ownership.MSTR}%) and <a href={companyBitcoinLinks.SQ}>Square</a> (
+        {ownership.SQ}%), two Norwegian government pension funds now indirectly
+        hold <span id="amt-btc">{allBitcoins.toFixed(2)} bitcoin</span> (~
         {(usdValueOfAllCoins / 1_000_000).toFixed(1)}m USD). This is equivalent
         to{" "}
         {satoshisPerCitizen.toLocaleString(undefined, {
