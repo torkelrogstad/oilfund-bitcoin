@@ -14,9 +14,9 @@ const ownership: { [key in Company]: number } = {
   SEETEE: 4.426,
 };
 const bitcoinCount: { [key in Company]: number } = {
-  MSTR: 91_064,
+  MSTR: 91_579,
   SQ: 8_027,
-  TSLA: 43_053,
+  TSLA: 38_202,
   SEETEE: 1_170,
 };
 
@@ -40,6 +40,17 @@ const norwegianCount = 5_374_807;
 interface Response {
   BtcUsd: number;
 }
+
+const CompanyPercentage: React.FC<{ company: Company }> = ({
+  company,
+  children,
+}) => (
+  <>
+    <a href={companyBitcoinLinks[company]}>{children}</a> (
+    {ownership[company].toFixed(2)}
+    %)
+  </>
+);
 
 function App() {
   const { data, error } = useGet<Response>("https://api.rogstad.io/oilfund");
@@ -67,14 +78,15 @@ function App() {
       <img alt="bitcoin-gif" src={bitcoinGif} />
       <p id="btc-summary">
         Through its ownership stakes in{" "}
-        <a href={companyBitcoinLinks.SEETEE}>Seetee</a> (parent Aker group) (
-        {ownership.SEETEE}%), <a href={companyBitcoinLinks.TSLA}>Tesla</a> (
-        {ownership.TSLA}%), <a href={companyBitcoinLinks.MSTR}>MicroStrategy</a>{" "}
-        ({ownership.MSTR}%) and <a href={companyBitcoinLinks.SQ}>Square</a> (
-        {ownership.SQ}%), two Norwegian government pension funds now indirectly
-        hold <span id="amt-btc">{allBitcoins.toFixed(2)} bitcoin</span> (~
-        {(usdValueOfAllCoins / 1_000_000).toFixed(1)}m USD). This is equivalent
-        to{" "}
+        <CompanyPercentage company="SEETEE">
+          Seetee (parent Aker group)
+        </CompanyPercentage>
+        , <CompanyPercentage company="TSLA">Tesla</CompanyPercentage>,{" "}
+        <CompanyPercentage company="MSTR">MicroStrategy</CompanyPercentage> and{" "}
+        <CompanyPercentage company="SQ">Square</CompanyPercentage>, two
+        Norwegian government pension funds now indirectly hold{" "}
+        <span id="amt-btc">{allBitcoins.toFixed(2)} bitcoin</span> (~USD{" "}
+        {(usdValueOfAllCoins / 1_000_000).toFixed(1)}m). This is equivalent to{" "}
         {satoshisPerCitizen.toLocaleString(undefined, {
           maximumFractionDigits: 0,
         })}{" "}
@@ -83,8 +95,9 @@ function App() {
       <p>
         The TSLA bitcoin count is based on an estimate, where we assume they
         bought through January 2021, with a BTCUSD volume weighted average price
-        (VWAP) of $34,840. When TSLA releases more details on this, this site
-        will be updated.
+        (VWAP) of $34,840. TSLA later sold BTC worth USD 272 million, and
+        assuming their reported BTC balance sheet is reported at cost price, we
+        then end up with a stack of 38,202 BTC.
       </p>
       <p>
         Every once in a while the Bitcoin price changes or a new publicly listed
