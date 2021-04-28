@@ -107,7 +107,7 @@ function App() {
         citizen.
       </p>
       <p id="company-list">
-        Companies, with amount of ownership held by the Norwegian government:
+        Companies, with equity held by the Norwegian government:
         <ul>
           {Companies.map((company) => (
             <li key={company}>
