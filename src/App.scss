@@ -8,21 +8,58 @@ body {
 
   width: 100vw;
 
-  text-align: center;
-
+  text-align: justify;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  p {
+  p,
+  details {
     width: 400px;
     max-width: 90%;
   }
 
-  #amt-btc {
+  details {
+    summary {
+      text-decoration: underline;
+
+      text-align: initial;
+
+      font-size: 90%;
+      margin-bottom: 1em;
+    }
+
+    p {
+      font-size: 80%;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  #company-list {
+    li > .li-content {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  #company-list,
+  #company-list > ul {
+    margin-bottom: 0;
+  }
+
+  .amt-btc {
     text-decoration: underline;
     font-weight: 700;
+  }
+
+  #made-by {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 5em;
+
+    opacity: 0.5;
   }
 
   img {
@@ -30,6 +67,7 @@ body {
   }
 
   #btc-summary {
+    text-align: center;
     font-size: 130%;
   }
 }
