@@ -3,7 +3,15 @@ import "./App.scss";
 import { useGet } from "restful-react";
 import bitcoinGif from "./bitcoin.gif";
 
-type Company = "MSTR" | "SQ" | "TSLA" | "SEETEE" | "ADE.DE" | "TYO:3659";
+type Company =
+  | "MSTR"
+  | "SQ"
+  | "TSLA"
+  | "SEETEE"
+  | "ADE.DE"
+  | "MELI"
+  | "TYO:3659";
+
 const ownership: { [key in Company]: number } = {
   MSTR: 1.09,
   SQ: 0.59,
@@ -14,6 +22,7 @@ const ownership: { [key in Company]: number } = {
   SEETEE: 4.426,
   "ADE.DE": 0.53,
   "TYO:3659": 0.59,
+  MELI: 1,
 };
 
 const Companies = Object.keys(ownership) as Company[];
@@ -25,6 +34,7 @@ const bitcoinCount: { [key in Company]: number } = {
   SEETEE: 1_170,
   "ADE.DE": 4_000,
   "TYO:3659": 1_717,
+  MELI: 7_800_000 / 58_763,
 };
 
 const companyBitcoinLinks: { [key in Company]: string } = {
@@ -39,6 +49,8 @@ const companyBitcoinLinks: { [key in Company]: string } = {
   "ADE.DE":
     "https://bitcoingroup.com/images//PDF/FB_2020/BitcoinGroup_HJB2020.pdf",
   "TYO:3659": "https://pdf.irpocket.com/C3659/bxTh/SDDC/wbxu.pdf",
+  MELI:
+    "https://www.sec.gov/Archives/edgar/data/0001099590/000156276221000190/meli-20210505xex99_1.htm",
 };
 
 const companyNames: { [key in Company]: string } = {
@@ -48,6 +60,7 @@ const companyNames: { [key in Company]: string } = {
   TSLA: "Tesla",
   "ADE.DE": "Bitcoin Group",
   "TYO:3659": "Nexon",
+  MELI: "MercadoLibre",
 };
 
 const indirectBtc = (company: Company) => {
@@ -129,9 +142,10 @@ function App() {
         <p>
           The TSLA bitcoin count is based on an estimate, where we assume they
           bought through January 2021, with a BTCUSD volume weighted average
-          price (VWAP) of $34,840. TSLA later sold BTC worth USD 272 million,
-          and assuming their reported BTC balance sheet is reported at cost
-          price, we then end up with a stack of 38,202 BTC.
+          price (VWAP) of ${(34_840).toLocaleString()}. TSLA later sold BTC
+          worth USD 272 million, and assuming their reported BTC balance sheet
+          is reported at cost price, we then end up with a stack of{" "}
+          {(38_202).toLocaleString()} BTC.
         </p>
         <p>
           The ADE.DE bitcoin count is not precisely known. The founder of the
@@ -140,6 +154,11 @@ function App() {
             podcast
           </a>{" "}
           that they own {(4000).toLocaleString()} bitcoin.
+        </p>
+        <p>
+          MELI acquired BTC for USD 7.8 million, without providing any further
+          details. Until they do so, we assume they bought at closing of Q1
+          2021: ${(58763).toLocaleString()}
         </p>
       </details>
       <p id="made-by">
