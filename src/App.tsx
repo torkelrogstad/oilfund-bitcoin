@@ -10,6 +10,7 @@ type Company =
   | "SEETEE"
   | "ADE.DE"
   | "MELI"
+  | "GLOB"
   | "TYO:3659";
 
 const ownership: { [key in Company]: number } = {
@@ -23,9 +24,12 @@ const ownership: { [key in Company]: number } = {
   "ADE.DE": 0.53,
   "TYO:3659": 0.59,
   MELI: 1,
+  GLOB: 1.11, // https://www.nbim.no/en/the-fund/investments/#/2020/investments/equities/1488/Globant%20SA
 };
 
 const Companies = Object.keys(ownership) as Company[];
+const norwegianCount = 5_374_807;
+const closingQ12021BTCUSD = 58_763;
 
 const bitcoinCount: { [key in Company]: number } = {
   MSTR: 92_079,
@@ -34,23 +38,21 @@ const bitcoinCount: { [key in Company]: number } = {
   SEETEE: 1_170,
   "ADE.DE": 4_000,
   "TYO:3659": 1_717,
-  MELI: 7_800_000 / 58_763,
+  MELI: 7_800_000 / closingQ12021BTCUSD,
+  GLOB: 500_000 / closingQ12021BTCUSD,
 };
 
 const companyBitcoinLinks: { [key in Company]: string } = {
-  TSLA:
-    "https://www.sec.gov/Archives/edgar/data/1318605/000156459021004599/tsla-10k_20201231.htm",
-  MSTR:
-    "https://ir.microstrategy.com/news-releases/news-release-details/microstrategy-adopts-bitcoin-primary-treasury-reserve-asset",
+  TSLA: "https://www.sec.gov/Archives/edgar/data/1318605/000156459021004599/tsla-10k_20201231.htm",
+  MSTR: "https://ir.microstrategy.com/news-releases/news-release-details/microstrategy-adopts-bitcoin-primary-treasury-reserve-asset",
   SEETEE:
     "https://www.seetee.io/static/shareholder_letter-6ae7e85717c28831bf1c0eca1d632722.pdf",
-  SQ:
-    "https://images.ctfassets.net/2d5q1td6cyxq/5sXNrlEh2mEnTvvhgtYOm2/737bcfdc15e2a1c3cbd9b9451710ce54/Square_Inc._Bitcoin_Investment_Whitepaper.pdf",
+  SQ: "https://images.ctfassets.net/2d5q1td6cyxq/5sXNrlEh2mEnTvvhgtYOm2/737bcfdc15e2a1c3cbd9b9451710ce54/Square_Inc._Bitcoin_Investment_Whitepaper.pdf",
   "ADE.DE":
     "https://bitcoingroup.com/images//PDF/FB_2020/BitcoinGroup_HJB2020.pdf",
   "TYO:3659": "https://pdf.irpocket.com/C3659/bxTh/SDDC/wbxu.pdf",
-  MELI:
-    "https://www.sec.gov/Archives/edgar/data/0001099590/000156276221000190/meli-20210505xex99_1.htm",
+  MELI: "https://www.sec.gov/Archives/edgar/data/0001099590/000156276221000190/meli-20210505xex99_1.htm",
+  GLOB: "https://www.sec.gov/Archives/edgar/data/1557860/000110465921071235/tm2116803d1_ex99-1.htm",
 };
 
 const companyNames: { [key in Company]: string } = {
@@ -61,13 +63,12 @@ const companyNames: { [key in Company]: string } = {
   "ADE.DE": "Bitcoin Group",
   "TYO:3659": "Nexon",
   MELI: "MercadoLibre",
+  GLOB: "Globant",
 };
 
 const indirectBtc = (company: Company) => {
   return bitcoinCount[company] * (ownership[company] / 100);
 };
-
-const norwegianCount = 5_374_807;
 
 interface Response {
   BtcUsd: number;
@@ -158,7 +159,12 @@ function App() {
         <p>
           MELI acquired BTC for USD 7.8 million, without providing any further
           details. Until they do so, we assume they bought at closing of Q1
-          2021: ${(58763).toLocaleString()}
+          2021: ${closingQ12021BTCUSD.toLocaleString()}
+        </p>
+        <p>
+          GLOB acquired BTC for USD 500 000, without providing any further
+          details. Until they do so, we assume they bought at closing of Q1
+          2021: ${closingQ12021BTCUSD.toLocaleString()}
         </p>
       </details>
       <p id="made-by">
