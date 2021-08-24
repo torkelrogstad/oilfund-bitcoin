@@ -80,7 +80,12 @@ const CompanyPercentage: React.FC<{ company: Company }> = ({
 }) => (
   <>
     <a href={companyBitcoinLinks[company]}>{children}</a>{" "}
-    <span>{ownership[company].toFixed(2)}%</span>
+    <span className="percentage-details">
+      <span className="hidden-mobile">{ownership[company].toFixed(2)}%</span>
+      <span>
+        {(bitcoinCount[company] * (ownership[company] / 100)).toFixed(2)} BTC
+      </span>
+    </span>
   </>
 );
 
@@ -121,7 +126,8 @@ function App() {
         citizen.
       </p>
       <p id="company-list">
-        Companies, with equity held by the Norwegian government:
+        Companies, with<span className="hidden-mobile"> equity and</span>{" "}
+        bitcoin indirectly held by the Norwegian government
         <ul>
           {Companies.map((company) => (
             <li key={company}>
@@ -168,8 +174,8 @@ function App() {
         </p>
       </details>
       <p id="made-by">
-        Made by <a href="https://rogstad.io">Torkel Rogstad</a>, originally
-        reported on by{" "}
+        Made by <a href="https://twitter.com/torkelrogstad">Torkel Rogstad</a>,
+        originally reported on by{" "}
         <a href="https://research.arcane.no/news/the-norwegian-oil-fund-now-owns-almost-600-bitcoins">
           Arcane Research
         </a>

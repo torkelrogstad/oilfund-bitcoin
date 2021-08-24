@@ -1,3 +1,5 @@
+$small-screen: 520px;
+
 body {
   padding: 0;
   margin: 0;
@@ -16,7 +18,7 @@ body {
 
   p,
   details {
-    width: 400px;
+    width: 500px;
     max-width: 90%;
   }
 
@@ -38,6 +40,15 @@ body {
   }
 
   #company-list {
+    .percentage-details {
+      display: flex;
+      justify-content: space-between;
+      @media (max-device-width: $small-screen) {
+        justify-content: flex-end;
+      }
+      width: 40%;
+    }
+
     li > .li-content {
       display: flex;
       justify-content: space-between;
@@ -69,5 +80,11 @@ body {
   #btc-summary {
     text-align: center;
     font-size: 130%;
+  }
+}
+
+@media (max-device-width: $small-screen) {
+  .hidden-mobile {
+    display: none;
   }
 }
