@@ -28,7 +28,7 @@ const ownership: { [key in Company]: number } = {
 };
 
 const Companies = Object.keys(ownership) as Company[];
-const norwegianCount = 5_374_807;
+const norwegianCount = 5_402_171;
 const closingQ12021BTCUSD = 58_763;
 
 const bitcoinCount: { [key in Company]: number } = {
