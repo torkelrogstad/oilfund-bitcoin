@@ -2,6 +2,7 @@ import React from "react";
 import "./App.scss";
 import { useGet } from "restful-react";
 import bitcoinGif from "./bitcoin.gif";
+import { isJsxOpeningElement } from "typescript";
 
 type Company =
   | "MSTR"
@@ -89,6 +90,22 @@ const CompanyPercentage: React.FC<{ company: Company }> = ({
   </>
 );
 
+function getUpdatedAt(): Date | undefined {
+  const { REACT_APP_UPDATE_DATE: rawUpdatedAt } = process.env;
+  if (!rawUpdatedAt) {
+    console.log("updated at: empty REACT_APP_UPDATE_DATE");
+    return;
+  }
+
+  const parsed = Number.parseInt(rawUpdatedAt);
+  if (Number.isNaN(parsed)) {
+    console.log("updated at: NaN:", rawUpdatedAt);
+    return;
+  }
+
+  return new Date(parsed * 1000);
+}
+
 function App() {
   const { data, error } = useGet<Response>("https://api.rogstad.io/oilfund");
   if (error) {
@@ -114,6 +131,7 @@ function App() {
 
   const usdValueOfAllCoins = allBitcoins * BtcUsd;
 
+  const updatedAt = getUpdatedAt();
   return (
     <>
       <img alt="bitcoin-gif" src={bitcoinGif} />
@@ -180,6 +198,11 @@ function App() {
           Arcane Research
         </a>
       </p>
+      {updatedAt && (
+        <p id="updated-at">
+          Bitcoin holdings were last updated at {updatedAt.toLocaleDateString()}
+        </p>
+      )}
     </>
   );
 }

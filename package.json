@@ -18,8 +18,9 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_UPDATE_DATE=$(yarn run --silent update-date) react-scripts start",
+    "update-date": "git show -s --format=%ct HEAD",
+    "build": "REACT_APP_UPDATE_DATE=$(yarn run --silent update-date) react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
