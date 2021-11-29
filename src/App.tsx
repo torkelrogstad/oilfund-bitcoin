@@ -32,7 +32,7 @@ const norwegianCount = 5_402_171;
 const closingQ12021BTCUSD = 58_763;
 
 const bitcoinCount: { [key in Company]: number } = {
-  MSTR: 114_042,
+  MSTR: 121_044,
   SQ: 8_027,
   TSLA: 38_202,
   SEETEE: 1_170,
