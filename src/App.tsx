@@ -2,7 +2,6 @@ import React from "react";
 import "./App.scss";
 import { useGet } from "restful-react";
 import bitcoinGif from "./bitcoin.gif";
-import { isJsxOpeningElement } from "typescript";
 
 type Company =
   | "MSTR"
