@@ -17,7 +17,7 @@
     "start": "REACT_APP_UPDATE_DATE=$(yarn run --silent update-date) react-scripts start",
     "update-date": "git show -s --format=%ct HEAD",
     "deploy": "yarn build && yarn push",
-    "push": "echo pushing to $DEPLOY_TARGET && scp -r build $DEPLOY_TARGET:/etc/caddy/norwegian-btc.fund",
+    "push": "echo pushing to $DEPLOY_TARGET && rsync -r build/* $DEPLOY_TARGET:/etc/caddy/norwegian-btc.fund",
     "build": "REACT_APP_UPDATE_DATE=$(yarn run --silent update-date) react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
