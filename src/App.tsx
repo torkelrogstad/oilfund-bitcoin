@@ -47,7 +47,7 @@ const bitcoinCount: { [key in Company]: number } = {
    */
   RIOT: 5_347,
   SQ: 8_027,
-  TSLA: 38_202,
+  TSLA: 10_725,
   SEETEE: 1_170,
   "TYO:3659": 1_717,
   MELI: 7_800_000 / closingQ12021BTCUSD,
@@ -181,10 +181,10 @@ function App() {
         <p>
           The TSLA bitcoin count is based on an estimate, where we assume they
           bought through January 2021, with a BTCUSD volume weighted average
-          price (VWAP) of ${(34_840).toLocaleString()}. TSLA later sold BTC
-          worth USD 272 million, and assuming their reported BTC balance sheet
+          price (VWAP) of ${(34_840).toLocaleString()}. TSLA later sold BTC at
+          two different occasions, and assuming their reported BTC balance sheet
           is reported at cost price, we then end up with a stack of{" "}
-          {(38_202).toLocaleString()} BTC.
+          {(10_725).toLocaleString()} BTC.
         </p>
         <p>
           MELI acquired BTC for USD 7.8 million, without providing any further
